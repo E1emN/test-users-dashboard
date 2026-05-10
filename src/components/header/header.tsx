@@ -3,17 +3,24 @@ import './header.scss';
 import { useUnit } from 'effector-react';
 import { $theme, themeChanged } from '@/model/theme';
 import { MoonOutlined, SunOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
   const theme = useUnit($theme);
 
+  const handleThemeChange = () => {
+    themeChanged();
+  };
+
   return (
     <Flex className='header' align='center' justify='space-between'>
-      <Typography.Title level={2}>Users Dashboard</Typography.Title>
+      <Link to='/'>
+        <Typography.Title level={2}>Users Dashboard</Typography.Title>
+      </Link>
       {theme === 'light' ? (
-        <MoonOutlined onClick={() => themeChanged()} />
+        <MoonOutlined onClick={handleThemeChange} />
       ) : (
-        <SunOutlined onClick={() => themeChanged()} />
+        <SunOutlined onClick={handleThemeChange} />
       )}
     </Flex>
   );

@@ -60,9 +60,7 @@ $usersSorting.on(tableChanged, (_, { sorting }) => sorting);
 
 $usersData.on(getUsersFx.doneData, (_, usersData) => usersData);
 
-$isLoading
-  .on(getUsersFx, () => true)
-  .on(getUsersFx.finally, () => false);
+$isLoading.on(getUsersFx, () => true).on(getUsersFx.finally, () => false);
 
 sample({
   clock: usersPageGate.open,

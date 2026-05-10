@@ -1,3 +1,4 @@
+import type { Theme } from '@/model/theme';
 import { type ThemeConfig, theme } from 'antd';
 
 const { darkAlgorithm, defaultAlgorithm } = theme;
@@ -19,7 +20,7 @@ const COLORS = {
   },
 } as const;
 
-export const getTheme = (theme: 'dark' | 'light') => {
+export const getTheme = (theme: Theme) => {
   const themeMode: ThemeConfig = {
     algorithm: theme === 'dark' ? darkAlgorithm : defaultAlgorithm,
     token: {

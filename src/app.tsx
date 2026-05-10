@@ -5,13 +5,23 @@ import { useEffect } from 'react';
 import { getTheme } from './assets/ant-theme/ant-theme';
 import { useGate, useUnit } from 'effector-react';
 import { appGate } from './model/main';
-import { $theme } from './model/theme';
+import { $theme, themeReceivedFromStorage, type Theme } from './model/theme';
+import { UserPage } from './pages/user';
+import { NotFoundPage } from './pages/not-found';
 
 export const App = () => {
   const routes = useRoutes([
     {
       path: '/',
       element: <UsersPage />,
+    },
+    {
+      path: '/user/:id',
+      element: <UserPage />,
+    },
+    {
+      path: '*',
+      element: <NotFoundPage />,
     },
   ]);
 
@@ -21,6 +31,20 @@ export const App = () => {
   useEffect(() => {
     document.body.setAttribute('data-theme', theme);
   }, [theme]);
+
+  useEffect(() => {
+    const handler = (event: StorageEvent) => {
+      if (event.key === 'theme' && event.newValue) {
+        themeReceivedFromStorage(event.newValue as Theme);
+      }
+    };
+
+    window.addEventListener('storage', handler);
+
+    return () => {
+      window.removeEventListener('storage', handler);
+    };
+  }, []);
 
   return (
     <ConfigProvider theme={getTheme(theme)}>

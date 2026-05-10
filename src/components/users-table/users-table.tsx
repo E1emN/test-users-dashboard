@@ -5,6 +5,7 @@ import {
   tableChanged,
   $isLoading,
 } from '@/model/user';
+import { SolutionOutlined } from '@ant-design/icons';
 import { Avatar, Flex, Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { useUnit } from 'effector-react';
@@ -15,6 +16,14 @@ export const UsersTable = () => {
   const isLoading = useUnit($isLoading);
 
   const columns: ColumnsType<User> = [
+    {
+      dataIndex: 'id',
+      render: (id) => (
+        <a target='_blank' href={`/user/${id}`}>
+          <SolutionOutlined />
+        </a>
+      ),
+    },
     {
       title: 'Avatar',
       dataIndex: 'image',
